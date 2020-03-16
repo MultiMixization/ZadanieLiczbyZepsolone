@@ -8,32 +8,30 @@ using std::cin;
  * w pliku naglowkowym.
  */
 
-void wczytaj(WyrazenieZesp &WyrZ, unsigned int IndeksPyt, WyrazenieZesp *wskTabTestu)
+std::istream & operator >> (std::istream & strm, Operator & Op)
 {
-  wyrZ.Arg1=wskTabTestu[IndeksPyt].Arg1;
-  wyrZ.Op=wskTabTestu[IndeksPyt].Op;
-  wyrZ.Arg2=wskTabTestu[IndeksPyt].Arg2;
-}
-
-void wyswietl(WyrazenieZesp WyrZ)
-{
-  cout << "(" << WyrZ.Arg1.re << WyrZ.Arg1.im << "i";
-  switch(WyrZ.Op)
+  char znak;
+  strm >>znak;
+  switch(znak)
     {
-    case Op_Dodaj:
-      cout << "+";
+    case '+':
+      Op=Op_Dodaj;
       break;
-    case Op_Odejmij:
-      cout << "-";
+    case '-':
+      Op=Op_Odejmij;
       break;
-    case Op_Mnoz:
-      cout << "*";
+    case '*':
+      Op=Op_Mnoz;
       break;
-    case Op_Dziel:
-      cout << "/";
+    case '/':
+      Op=Op_Dziel;
       break;
     }
-  cout << WyrZ.Arg2.re << WyrZ.Arg2.im << "i)"; 
+}
+
+std::istream & operator >> (std::istream & strm, WyrazenieZespolone & Wz)
+{
+  strm >> Wz.Arg1 >> Wz.Op >> Wz.Arg2;
 }
 
 LZespolona Oblicz(WyrazenieZesp WyrZ)
