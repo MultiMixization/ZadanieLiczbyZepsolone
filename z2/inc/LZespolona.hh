@@ -1,6 +1,9 @@
 #ifndef LZESPOLONA_HH
 #define LZESPOLONA_HH
 
+#include <iostream>
+#include <cstdio>
+
 /*!
  *  Plik zawiera definicje struktury LZesplona oraz zapowiedzi
  *  przeciazen operatorow arytmetycznych dzialajacych na tej 
@@ -29,7 +32,7 @@ LZespolona operator * (LZespolona Skl1, double a);
 LZespolona operator / (LZespolona Skl1, double a);
 
 LZespolona operator + (LZespolona Skl1, LZespolona Skl2);
-LZespoloma operator - (LZespolona Skl1, LZespolona Skl2);
+LZespolona operator - (LZespolona Skl1, LZespolona Skl2);
 LZespolona operator * (LZespolona Skl1, LZespolona Skl2);
 LZespolona operator / (LZespolona Skl1, LZespolona Skl2);
 

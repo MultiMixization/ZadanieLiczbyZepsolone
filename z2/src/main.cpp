@@ -1,5 +1,6 @@
 #include <iostream>
 #include "BazaTestu.hh"
+#include "WyrazenieZesp.hh"
 
 using std::cout;
 using std::cin;

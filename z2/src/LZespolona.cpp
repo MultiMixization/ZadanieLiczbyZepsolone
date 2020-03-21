@@ -1,20 +1,23 @@
 #include "LZespolona.hh"
 
+#include <cmath>
+
 std::istream & operator >> (std::istream &strm, LZespolona &Skl)
 {
   char znak;
   strm >> znak;
   if(znak != '(') strm.setstate(std::ios::failbit);
-  strm >> Skl.re >> Skl.lm >> znak;
+  strm >> Skl.re >> Skl.im >> znak;
   if(znak != 'i') strm.setstate(std::ios::failbit);
   strm >> znak;
   if(znak != ')') strm.setstate(std::ios::failbit);
-  return true;
+  return strm;
 }
 
 std::ostream & operator << (std::ostream &strm, LZespolona Skl)
 {
-  strm << "(" << Skl.re << Skl.im << "i");
+  strm << "(" << Skl.re << Skl.im << "i)";
+  return strm;
 }
 
 bool operator == (LZespolona Skl1, LZespolona Skl2)
@@ -102,7 +105,7 @@ LZespolona operator / (LZespolona Skl1, LZespolona Skl2)
 {
   LZespolona Wynik;
 
-  Wynik.rm=(Skl1.re*Skl2.re+Skl1.im*Skl2.im)/(Skl1.im^2+Skl2.im^2);
-  Wynik.im=(Skl1.im*Skl2.re-Skl1.re*Skl2.im)/(Skl1.im^2+Skl2.im^2);
+  Wynik.re=(Skl1.re*Skl2.re+Skl1.im*Skl2.im)/(pow(Skl1.im,2)+pow(Skl2.im,2));
+  Wynik.im=(Skl1.im*Skl2.re-Skl1.re*Skl2.im)/(pow(Skl1.im,2)+pow(Skl2.im,2));
   return Wynik;
 }

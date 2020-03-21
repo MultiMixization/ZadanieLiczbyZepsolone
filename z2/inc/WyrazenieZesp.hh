@@ -1,6 +1,9 @@
 #ifndef WYRAZENIEZESP_HH
 #define WYRAZENIEZESP_HH
 
+#include <iostream>
+#include <cstdio>
+
 #include "LZespolona.hh"
 
 
@@ -19,7 +22,7 @@ struct WyrazenieZesp {
 };
 
 std::istream & operator >> (std::istream & strm, Operator & Op);
-std::istream & operator >> (std::istream & strm, WyrazenieZespolone & Wz);
+std::istream & operator >> (std::istream & strm, WyrazenieZesp & Wz);
 
 LZespolona Oblicz(WyrazenieZesp WyrZ);
 

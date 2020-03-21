@@ -11,7 +11,7 @@ using std::cin;
 std::istream & operator >> (std::istream & strm, Operator & Op)
 {
   char znak;
-  strm >>znak;
+  strm >> znak;
   switch(znak)
     {
     case '+':
@@ -27,11 +27,13 @@ std::istream & operator >> (std::istream & strm, Operator & Op)
       Op=Op_Dziel;
       break;
     }
+  return strm;
 }
 
-std::istream & operator >> (std::istream & strm, WyrazenieZespolone & Wz)
+std::istream & operator >> (std::istream & strm, WyrazenieZesp & Wz)
 {
   strm >> Wz.Arg1 >> Wz.Op >> Wz.Arg2;
+  return strm;
 }
 
 LZespolona Oblicz(WyrazenieZesp WyrZ)
