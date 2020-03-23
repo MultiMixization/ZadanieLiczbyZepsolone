@@ -1,7 +1,5 @@
 #include "LZespolona.hh"
 
-#include <cmath>
-
 std::istream & operator >> (std::istream &strm, LZespolona &Skl)
 {
   char znak;
@@ -68,6 +66,11 @@ LZespolona operator * (LZespolona Skl1, double a)
 LZespolona operator / (LZespolona Skl1, double a)
 {
   LZespolona Wynik;
+  if(a==0)
+    {
+      cerr << "Nie dziel przez 0!" << endl;
+      std::exit(1);
+    }
 
   Wynik.re=Skl1.re/a;
   Wynik.im=Skl1.im/a;
