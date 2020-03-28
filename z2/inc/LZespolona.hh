@@ -20,8 +20,8 @@ struct  LZespolona
   double   im;    /*! Pole repezentuje czesc urojona. */
 };
 
-std::istream & operator >> (std::istream &strm, LZespolona &Skl);
-std::ostream & operator << (std::ostream &strm, LZespolona Skl);
+std::istream & operator >> (std::istream & strm, LZespolona &Skl);
+std::ostream & operator << (std::ostream & strm, LZespolona Skl);
 
 bool operator == (LZespolona Skl1, LZespolona Skl2);
 bool operator != (LZespolona Skl1, LZespolona Skl2);

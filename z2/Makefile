@@ -32,7 +32,7 @@ ${OBJ}/BazaTestu.o: src/BazaTestu.cpp inc/BazaTestu.hh inc/WyrazenieZesp.hh\
                        inc/LZespolona.hh
 	g++ -c ${FLAGS} -o ${OBJ}/BazaTestu.o src/BazaTestu.cpp
 
-${OBJ}/Statystka.o: src/Statystyka.cpp inc/Statystkya.hh 
+${OBJ}/Statystyka.o: src/Statystyka.cpp inc/Statystyka.hh 
 	g++ -c ${FLAGS} -o ${OBJ}/Statystyka.o src/Statystyka.cpp
 
 

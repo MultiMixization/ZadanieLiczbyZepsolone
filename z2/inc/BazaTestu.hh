@@ -1,21 +1,20 @@
 #ifndef BAZATESTU_HH
 #define BAZATESTU_HH
 
+#include <iostream>
+#include <fstream>
+
 #include "WyrazenieZesp.hh"
+#include "LZespolona.hh"
+#include "Statystyka.hh"
 
-/*
- * Modeluje pojecie baze testu z zestawem pytan w tablicy
- * oraz informacji o maksymalnej ilosci pytan, jak
- * tez indeksem nastepnego pytania, ktore ma byc pobrane
- * z bazy.
- */
-struct BazaTestu {
-  WyrazenieZesp  *wskTabTestu;   /* Wskaznik na tablice zawierajaca pytania testu */
-  unsigned int    IloscPytan;    /* Ilosc wszystkich pytan */
-  unsigned int    IndeksPytania; /* Numer pytania, ktore ma byc pobrane jako nastepne */
-};
+std::string PytajNazwa();
+bool otworz(std::ifstream & wej, std::string nazwa);
+void zamknij(std::ifstream & wej);
+bool WczytajPytanie(std::ifstream & wej, WyrazenieZesp & WyrZ);
 
-bool InicjalizujTest( BazaTestu  *wskBazaTestu, const char*  sNazwaTestu );
-bool PobierzNastpnePytanie( BazaTestu  *wskBazaTestu,  WyrazenieZesp *wskWyr );
+LZespolona WczytajOdpowiedz(std::istream & strm);
+
+bool CzyPoprawne(LZespolona odp, WyrazenieZesp zad);
 
 #endif

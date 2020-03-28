@@ -1,120 +1,68 @@
-#include <iostream>
-#include <cstring>
-#include <cassert>
 #include "BazaTestu.hh"
 
 using namespace std;
 
-/*
- * Tablica, ktora jest widoczna tylko w tym module.
- * Zawiera ona tresc latwego testu.
- */
-static WyrazenieZesp  TestLatwy[] =
-  { {{2,1}, Op_Dodaj, {1,2}},
-    {{1,0}, Op_Odejmij, {0,1}},
-    {{3,0}, Op_Mnoz, {0,3}},
-    {{4,8}, Op_Dziel, {1,0}},
-  };
-
-/*
- * Analogicznie zdefiniuj test "trudne"
- *
- */
-static WyrazenieZesp TestTrudny[]=
-  { {{0,0}, Op_Dodaj, {1,2}},
-    {{0,0}, Op_Odejmij, {0,0}},
-  };
-
-
-
-
-/*
- * W bazie testu ustawia wybrany test jako biezacy test i indeks pytania
- * ustawia na pierwsze z nich.
- * Parametry:
- *    wskBazaTestu - wskaznik na zmienna reprezentujaca baze testu,
- *    wskTabTestu  - wskaznik na tablice zawierajaca wyrazenia arytmetyczne
- *                   bedace przedmiotem testu,
- *    IloscElemTab - ilosc pytan w tablicy.
- *   
- * Warunki wstepne:
- *      - Parametr wskBazaTestu nie moze byc pustym wskaznikiem. Musi zawierac adres
- *        zmiennej reprezentujacej baze testu, ktora wczesniej zostal poprawnie
- *        zainicjalizowany poprzez wywolanie funkcji InicjalizujTest.
- *      - Parametr wskTabTestu zawiera wskaznik na istniejaca tablice.
- *      - Parametr IloscPytan zawiera wartosc, ktora nie przekracza ilosci elementow
- *        w tablicy dostepnej poprzez wskTabTestu.
- */
-void UstawTest( BazaTestu *wskBazaTestu, WyrazenieZesp *wskTabTestu, unsigned int IloscPytan )
+string PytajNazwa()
 {
-  wskBazaTestu->wskTabTestu = wskTabTestu;
-  wskBazaTestu->IloscPytan = IloscPytan;
-  wskBazaTestu->IndeksPytania = 0;
+  string nazwa;
+  cout << "Podaj nazwe pliku wejsciowego:";
+  cin >> nazwa;
+  cout << endl;
+  return nazwa;
 }
 
-
-
-
-/*
- * Inicjalizuje test kojarzac zmienna dostepna poprzez wskaznik wskBazaTestu
- * z dana tablica wyrazen, ktora reprezentuje jeden z dwoch dopuszczalnych 
- * testow.
- * Parametry:
- *    wskBazaTestu - wskaznik na zmienna reprezentujaca baze testu.
- *    sNazwaTestu  - wskaznik na napis wybranego typu testu.
- *
- * Warunki wstepne:
- *      - Parametr wskBazaTestu nie moze byc pustym wskaznikiem. Musi zawierac adres
- *        zmiennej reprezentujacej baze testu, ktora wczesniej zostal poprawnie
- *        zainicjalizowany poprzez wywolanie funkcji InicjalizujTest.
- *      - Parametr sNazwaTestu musi wskazywac na jedna z nazw tzn. "latwe" lub "trudne".
- *       
- * Zwraca:
- *       true - gdy operacja sie powiedzie i test zostanie poprawnie
- *              zainicjalizowany,
- *       false - w przypadku przeciwnym.
- */
-bool InicjalizujTest( BazaTestu  *wskBazaTestu, const char *sNazwaTestu )
+bool otworz(ifstream & wej, string nazwa)
 {
-  if (!strcmp(sNazwaTestu,"latwy")) {
-    UstawTest(wskBazaTestu,TestLatwy,sizeof(TestLatwy)/sizeof(WyrazenieZesp));
-    return true;
-  }
-  if(!strcmp(sNazwaTestu,"trudny"))
+  wej.open(nazwa);
+  if(wej.is_open())
     {
-      UstawTest(wskBazaTestu,TestTrudny,sizeof(TestTrudny)/sizeof(WyrazenieZesp));
-      return true;
+      return 1;
     }
-  cerr << "Otwarcie testu '" << sNazwaTestu << "' nie powiodlo sie." << endl;
-  return false;
+  return 0;
 }
 
-
-
-/*!
- * Funkcja udostepnia nastepne pytania o ile jest odpowiednia ich ilosc.
- * Parametry:
- *       wskBazaTestu - wskaznik na zmienna reprezentujaca baze testu.
- *       wskWyrazenie - wskaznik na zmienna, do ktorej zostanie wpisane
- *                      kolejne wyrazenie z bazy testu.
- *
- * Warunki wstepne:
- *      - Parametr wskBazaTestu nie moze byc pustym wskaznikiem. Musi zawierac adres
- *        zmiennej reprezentujacej baze testu, ktora wczesniej zostal poprawnie
- *        zainicjalizowany poprzez wywolanie funkcji InicjalizujTest.
- *      - Parametr wskWyrazenie nie moze byc pustym wskaznikiem. Musi wskazywac na
- *        istniejaca zmienna.
- *
- * Zwraca:
- *       true - gdy operacja sie powiedzie i parametrowi *wskWyrazenie zostanie
- *              przypisane nowe wyrazenie zespolone z bazy,
- *       false - w przypadku przeciwnym.
- */
-bool PobierzNastpnePytanie( BazaTestu  *wskBazaTestu, WyrazenieZesp *wskWyrazenie )
+void zamknij(ifstream & wej)
 {
-  if (wskBazaTestu->IndeksPytania >= wskBazaTestu->IloscPytan) return false;
+  wej.close();
+}
 
-  *wskWyrazenie = wskBazaTestu->wskTabTestu[wskBazaTestu->IndeksPytania];
-  ++wskBazaTestu->IndeksPytania;
-  return true;
+bool WczytajPytanie(ifstream & wej, WyrazenieZesp & WyrZ)
+{
+  wej >> WyrZ;
+  if(wej.good())
+    {
+      return 1;
+    }
+  return 0;
+}
+
+LZespolona WczytajOdpowiedz(std::istream & strm)
+{
+  LZespolona temp;
+  int proby=0;
+  do{
+    strm >> temp;
+    if(!strm.good())
+      {
+	proby++;
+      }
+    else
+      {
+	return temp;
+      }
+  }while(proby<3);
+  exit(0);
+}
+
+bool CzyPoprawne(LZespolona odp, WyrazenieZesp zad)
+{
+  if(odp==Oblicz(zad))
+    {
+      return 1;
+    }
+  else
+    {
+      return 0;
+    }
+  return 0;
 }

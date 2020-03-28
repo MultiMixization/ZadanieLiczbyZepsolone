@@ -68,7 +68,7 @@ LZespolona operator / (LZespolona Skl1, double a)
   LZespolona Wynik;
   if(a==0)
     {
-      cerr << "Nie dziel przez 0!" << endl;
+      std::cerr << "Nie dziel przez 0!" << std::endl;
       std::exit(1);
     }
 
@@ -107,7 +107,12 @@ LZespolona operator * (LZespolona Skl1, LZespolona Skl2)
 LZespolona operator / (LZespolona Skl1, LZespolona Skl2)
 {
   LZespolona Wynik;
-
+  
+  if(Skl2.re==0 && Skl2.im==0)
+    {
+      std::cerr << "Blad! Dzielenie przez 0." << std::endl;
+      std::exit(1);
+    }
   Wynik.re=(Skl1.re*Skl2.re+Skl1.im*Skl2.im)/(pow(Skl1.im,2)+pow(Skl2.im,2));
   Wynik.im=(Skl1.im*Skl2.re-Skl1.re*Skl2.im)/(pow(Skl1.im,2)+pow(Skl2.im,2));
   return Wynik;

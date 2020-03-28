@@ -36,6 +36,32 @@ std::istream & operator >> (std::istream & strm, WyrazenieZesp & Wz)
   return strm;
 }
 
+std::ostream & operator << (std::ostream & strm, Operator Op)
+{
+  switch(Op)
+    {
+    case Op_Dodaj:
+      strm << "+";
+      break;
+    case Op_Odejmij:
+      strm << "-";
+      break;
+    case Op_Mnoz:
+      strm << "*";
+      break;
+    case Op_Dziel:
+      strm << "/";
+      break;
+    }
+  return strm;
+}
+
+std::ostream & operator << (std::ostream & strm, WyrazenieZesp Wz)
+{
+  strm << "(" << Wz.Arg1 << " " << Wz.Op << " " << Wz.Arg2 << "i)";
+  return strm;
+} 
+
 LZespolona Oblicz(WyrazenieZesp WyrZ)
 {
   switch(WyrZ.Op)
@@ -53,4 +79,5 @@ LZespolona Oblicz(WyrazenieZesp WyrZ)
       return WyrZ.Arg1/WyrZ.Arg2;
       break;
     }
+  return WyrZ.Arg1; //Zeby kompilator nie narzekal
 }
