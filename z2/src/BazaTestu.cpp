@@ -2,15 +2,6 @@
 
 using namespace std;
 
-string PytajNazwa()
-{
-  string nazwa;
-  cout << "Podaj nazwe pliku wejsciowego:";
-  cin >> nazwa;
-  cout << endl;
-  return nazwa;
-}
-
 bool otworz(ifstream & wej, string nazwa)
 {
   wej.open(nazwa);
@@ -45,12 +36,16 @@ LZespolona WczytajOdpowiedz(std::istream & strm)
     if(!strm.good())
       {
 	proby++;
+	cerr << "Wprowadzono nieprawidlowy format liczby. Sproboj jeszcze raz." << endl;
+	strm.clear();
+	strm.ignore(1000,'\n');
       }
     else
       {
 	return temp;
       }
   }while(proby<3);
+  cerr << "Trzy bledne proby wprowadzenia liczby. Program zakonczy sie." << endl;
   exit(0);
 }
 

@@ -58,7 +58,7 @@ std::ostream & operator << (std::ostream & strm, Operator Op)
 
 std::ostream & operator << (std::ostream & strm, WyrazenieZesp Wz)
 {
-  strm << "(" << Wz.Arg1 << " " << Wz.Op << " " << Wz.Arg2 << "i)";
+  strm << Wz.Arg1 << " " << Wz.Op << " " << Wz.Arg2;
   return strm;
 } 
 

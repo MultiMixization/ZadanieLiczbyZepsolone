@@ -14,7 +14,12 @@ std::istream & operator >> (std::istream &strm, LZespolona &Skl)
 
 std::ostream & operator << (std::ostream &strm, LZespolona Skl)
 {
-  strm << "(" << Skl.re << Skl.im << "i)";
+  strm << "(" << Skl.re;
+  if(Skl.im>=0)
+    {
+      strm << "+";
+    }
+  strm << Skl.im << "i)";
   return strm;
 }
 
