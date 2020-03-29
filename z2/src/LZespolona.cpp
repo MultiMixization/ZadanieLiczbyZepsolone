@@ -34,7 +34,7 @@ bool operator == (LZespolona Skl1, LZespolona Skl2)
 
 bool operator != (LZespolona Skl1, LZespolona Skl2)
 {
-  if(Skl1.re!=Skl2.re || Skl1.im!=Skl2.im)
+  if(!(Skl1.re==Skl2.re))
     {
       return true;
     }

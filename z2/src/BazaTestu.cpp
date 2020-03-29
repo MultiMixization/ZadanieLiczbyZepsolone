@@ -9,7 +9,8 @@ bool otworz(ifstream & wej, string nazwa)
     {
       return 1;
     }
-  return 0;
+  cerr << "Blad podczas otwierania pliku. Program zamknie sie." << endl;
+  exit(3);
 }
 
 void zamknij(ifstream & wej)
@@ -51,13 +52,5 @@ LZespolona WczytajOdpowiedz(std::istream & strm)
 
 bool CzyPoprawne(LZespolona odp, WyrazenieZesp zad)
 {
-  if(odp==Oblicz(zad))
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-  return 0;
+  return(odp==Oblicz(zad));
 }
